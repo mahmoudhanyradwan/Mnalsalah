@@ -62,9 +62,11 @@
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
 
-            const user = JSON.parse(localStorage.getItem('user'));
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const user = users.find(u => u.email === email && u.password === password);
 
-            if (user && user.email === email && user.password === password) {
+            if (user) {
+                localStorage.setItem('loggedUser', JSON.stringify({ email })); // حفظ المستخدم المتصل
                 alert('تم تسجيل الدخول بنجاح!');
                 window.location.href = 'home.html';
             } else {
